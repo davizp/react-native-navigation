@@ -10,16 +10,19 @@ import {
   Button,
 } from 'react-native';
 
-// import {
-//   Header,
-//   LearnMoreLinks,
-//   Colors,
-//   DebugInstructions,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
+import {
+// createStackNavigator,
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator,
+//   createMaterialBottomTabNavigator,
+//   createAppContainer
+} from "react-navigation";
 
 
-class HomeScreen extends React.Component {
+import Camera from './Camera.js';
+import Inbox from './Inbox.js';
+
+class Home extends React.Component {
   static navigationOptions = {
     title: 'Home Page',
   };
@@ -35,12 +38,6 @@ class HomeScreen extends React.Component {
         <Text style={styles.titleText}>
           Welcome to Home Page!
         </Text>
-        {/*
-        <Button
-          title="Go to Jane's profile"
-          onPress={this.goTo('Profile', {name: 'Jane'})}
-        />
-        */}
       </SafeAreaView>
     );
   }
@@ -58,4 +55,77 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+
+// const AppNavigator = createBottomTabNavigator({
+//   Home: {
+//     screen: Home
+//   },
+//   Search: {
+//     screen: Search
+//   },
+// }, {
+//   swipeEnabled: true,
+// });
+
+// const AppNavigator = createMaterialTopTabNavigator({
+//   Camera: {
+//     screen: Camera
+//   },
+//   Home: {
+//     screen: Home
+//   },
+//   Inbox: {
+//     screen: Inbox
+//   }
+// }, {
+//   // swipeEnabled: true,
+//   initialRouteName: 'Home',
+//   tabBarComponent: Fragment,
+// });
+
+const HomeNav = createMaterialTopTabNavigator({
+  Camera: {
+    screen: Camera,
+    navigationOptions: {
+      tabBarVisible: false,
+    }
+  },
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      tabBarVisible: false,
+    }
+  },
+  Inbox: {
+    screen: Inbox,
+    navigationOptions: {
+      tabBarVisible: false,
+    }
+  }
+}, {
+  swipeEnabled: true,
+  initialRouteName: 'Home',
+
+  // tabBarComponent: Fragment,
+  // navigationOptions: {
+  //   tabBarVisible: false,
+  //   header: null,
+  // },
+  // header: null,
+  // tabBarVisible: false,
+});
+
+
+HomeNav.navigationOptions = ({ navigation }) => {
+
+  // let tabBarVisible;
+
+  console.log('navigation.state', navigation.state);
+
+  // return {
+  // //   tabBarVisible
+  // };
+};
+
+// export default AppNavigator;
+export default HomeNav;
